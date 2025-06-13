@@ -24,7 +24,7 @@ if [ "$TRANSITION_DURATION" = "0" ]; then
 else
     # Crossfade transition
     DUR1=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$INPUT1")
-    OFFSET=$(awk -v d1="$DUR1" -v d="$TRANSITION_DURATION" 'BEGIN{print d1 - d}')
+    OFFSET=$(awk -v d1="$DUR1" -v d="$TRANSITION_DURATION" 'BEGIN{print d1 - d/2}')
     ffmpeg -i "$INPUT1" -i "$INPUT2" \
         -filter_complex "[0:v][1:v]xfade=transition=fade:duration=${TRANSITION_DURATION}:offset=${OFFSET}[v];[0:a][1:a]acrossfade=d=${TRANSITION_DURATION}[a]" \
         -map "[v]" -map "[a]" -c:v libx264 -crf 18 -preset veryfast "$OUTPUT"
