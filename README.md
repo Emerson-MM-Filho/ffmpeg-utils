@@ -15,3 +15,15 @@ duration before the first video ends and finishes exactly when it does:
 
 Without a transition, the script uses the `ffmpeg` concat demuxer and does not re-encode the inputs. When a duration is provided, a crossfade is applied which re-encodes the output.
 
+## scale_video.sh
+
+Use `scale_video.sh` to resize a video by a given scaling factor. The script
+takes the input video, a factor, and an optional output file. When the output
+is omitted, a new file with `_scaled` appended to the original name is written:
+
+```bash
+./scale_video.sh input.mp4 0.5   # 50% of the original size
+./scale_video.sh input.mp4 2     # 200% of the original size
+```
+
+
